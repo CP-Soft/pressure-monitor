@@ -1,0 +1,14 @@
+{
+  "name": "pressure",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "jarrilla <jarrilla.services@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.10",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.5",
+    "socket.io": "^4.1.3"
+  }
+}

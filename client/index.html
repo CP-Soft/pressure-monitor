@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="refresh" content='5'>
+</head>
+<body>
+
+  <div id='app'>
+
+    <div>
+      <canvas id='pressureChart' height="200" width="600"></canvas>
+    </div>
+
+  </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js" integrity="sha512-asxKqQghC1oBShyhiBwA+YgotaSYKxGP1rcSYTDrB0U6DxwlJjU59B67U8+5/++uFjcuVM8Hh5cokLjZlhm3Vg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+
+<script>
+const APP = new Vue({
+  el: '#app',
+
+  data: {
+    pressurePoints: []
+  },
+
+  methods: {
+
+  },
+
+  mounted() {
+    axios.get('http://localhost:3000/pressure')
+    .then(res => {
+      
+      // this.pressurePoints = res.data.allPressures;
+
+      const { allPressures } = res.data;
+
+      // Setup for our P/T chart
+      const labels = allPressures.map(x => x.time);
+      const _data = allPressures.map(x => x.pressure);
+      const datasets = [{
+        label: 'Air Compression System P/T',
+        data: _data
+      }];
+      const data = {
+        labels,
+        datasets
+      };
+
+      const config = {
+        type: 'line',
+        data,
+        options: {}
+      };
+
+      // define the chart element & link it to canvas element
+      const myChart = new Chart(
+        document.getElementById('pressureChart'),
+        config
+      );
+
+    })
+    .catch(err => {
+      console.error(err);
+    });
+  }
+});
+</script>
+
+</body>
+</html>
