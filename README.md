@@ -12,3 +12,4 @@ Quick & dirty project for displaying pressure compressors data in a graph.
 1. `> cd server`
 1. `> yarn install`
 1. `> node src/server.js`
+1. Open `~/client/index.html`
